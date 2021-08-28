@@ -1,0 +1,27 @@
+postgresql_hba_entries:
+  - { type: local, database: all, user: postgres, auth_method: peer }
+  - { type: local, database: all, user: all, auth_method: peer }
+  - { type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5 }
+  - { type: host, database: all, user: all, address: 0.0.0.0/0, auth_method: md5 }
+  - { type: host, database: all, user: all, address: '::1/128', auth_method: md5 }
+postgresql_python_library: python3-psycopg2
+postgresql_global_config_options:
+  - option: listen_addresses
+    value: "*"
+postgresql_auth_method: md5
+postgresql_databases:
+  - name: ${kong_database_name}
+    login_password: ${kong_database_password}
+    owner: kong
+    port: 5432
+postgresql_users:
+  - name: ${kong_database_user}
+    password: ${kong_database_password}
+    db: ${kong_database_name}
+    port: 5432
+  - name: postgres
+    password: ${postgres_master_password}
+    db: postgres
+    priv: ALL
+    port: 5432
+postgres_users_no_log: false
