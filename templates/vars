@@ -8,6 +8,8 @@ postgresql_python_library: python3-psycopg2
 postgresql_global_config_options:
   - option: listen_addresses
     value: "*"
+  - option: log_directory
+    value: 'log'
 postgresql_auth_method: md5
 postgresql_databases:
   - name: ${kong_database_name}
